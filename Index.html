@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonbeam Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #ec4899, #f97316, #8b5cf6);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .logo-animation {
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .nav-item {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-item:hover {
+            transform: translateY(-2px);
+        }
+        
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: #ec4899;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item:hover::after {
+            width: 100%;
+            left: 0;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #ec4899, #f97316);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3);
+        }
+        
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .cart-badge {
+            animation: bounce 0.5s ease;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 60%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            80% { transform: translateY(-5px); }
+        }
+        
+        .section-hidden {
+            display: none;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 16px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            animation: notificationSlide 0.3s ease;
+        }
+        
+        @keyframes notificationSlide {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .modal {
+            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.5);
+        }
+        
+        .loading {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .payment-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 16px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            animation: notificationSlide 0.3s ease;
+        }
+        @keyframes notificationSlide {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .loading {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 logo-animation">
+                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+                        <div class="w-8 h-8 bg-black rounded-full flex items-center justify-center relative">
+                            <div class="w-6 h-6 bg-white rounded-full relative">
+                                <div class="absolute top-1 left-1 w-1 h-1 bg-pink-500 rounded-full"></div>
+                                <div class="absolute -top-1 right-1 text-gray-400 text-xs">🌸</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">Moonbeam</h1>
+                        <p class="text-sm opacity-90">hub</p>
+                    </div>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="nav-item py-2" onclick="showSection('home')">Home</a>
+                    <a href="#" class="nav-item py-2" onclick="showSection('products')">Products</a>
+                    <a href="#" class="nav-item py-2" onclick="showSection('categories')">Categories</a>
+                    <a href="#" class="nav-item py-2" onclick="showSection('contact')">Contact</a>
+                </nav>
+                
+                <!-- User Actions -->
+                <div class="flex items-center space-x-4">
+                    <button onclick="showSection('cart')" class="relative p-2 hover:bg-white hover:bg-opacity-20 rounded-full transition">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="cart-badge absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    </button>
+                    <button onclick="showSection('orders')" class="p-2 hover:bg-white hover:bg-opacity-20 rounded-full transition">
+                        <i class="fas fa-box text-xl"></i>
+                    </button>
+                    <button id="user-btn" onclick="showSection('login')" class="p-2 hover:bg-white hover:bg-opacity-20 rounded-full transition">
+                        <i class="fas fa-user text-xl"></i>
+                    </button>
+                    <button class="md:hidden p-2" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <nav class="flex flex-col space-y-2">
+                    <a href="#" class="py-2 px-4 hover:bg-white hover:bg-opacity-20 rounded" onclick="showSection('home')">Home</a>
+                    <a href="#" class="py-2 px-4 hover:bg-white hover:bg-opacity-20 rounded" onclick="showSection('products')">Products</a>
+                    <a href="#" class="py-2 px-4 hover:bg-white hover:bg-opacity-20 rounded" onclick="showSection('categories')">Categories</a>
+                    <a href="#" class="py-2 px-4 hover:bg-white hover:bg-opacity-20 rounded" onclick="showSection('contact')">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="min-h-screen">
+        <!-- Home Section -->
+        <section id="home-section" class="fade-in">
+            <!-- Hero Banner -->
+            <div class="gradient-bg text-white py-20">
+                <div class="container mx-auto px-4 text-center">
+                    <h2 class="text-5xl font-bold mb-6 slide-in">Welcome to Moonbeam Hub</h2>
+                    <p class="text-xl mb-8 opacity-90">Discover trending styles for the modern woman</p>
+                    <button onclick="showSection('products')" class="btn-primary px-8 py-3 rounded-full text-lg font-semibold">
+                        Shop Now <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Featured Categories -->
+            <div class="container mx-auto px-4 py-16">
+                <h3 class="text-3xl font-bold text-center mb-12">Featured Categories</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer" onclick="filterProducts('jewelry')">
+                        <div class="h-48 bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center">
+                            <i class="fas fa-gem text-6xl text-white"></i>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold mb-2">Jewelry </h4>
+                            <p class="text-gray-600">Elegant earrings, necklaces & accessories</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer" onclick="filterProducts('clothing')">
+                        <div class="h-48 bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
+                            <i class="fas fa-tshirt text-6xl text-white"></i>
+                        </div>
+                        <div class="p-6">
+                            <h4 image:https://image.hm.com/assets/hm/3a/c5/3ac5a09920c6987f9df3a458b6d4fa99e56440a5.jpg?imwidth=1260class="text-xl" font-semibold mb-2">Clothing</h4>
+                            <p class="text-gray-600">Trendy dresses, tops & ethnic wear</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer" onclick="filterProducts('accessories')">
+                        <div class="h-48 bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center">
+                            <i class="fas fa-handbag text-6xl text-white"></i>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold mb-2">Accessories</h4>
+                            <p class="text-gray-600">Bags, scarves & fashion accessories</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Featured Products -->
+            <div class="bg-gray-100 py-16">
+                <div class="container mx-auto px-4">
+                    <h3 class="text-3xl font-bold text-center mb-12">Featured Products</h3>
+                    <div id="featured-products" class="grid md:grid-cols-4 gap-6"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products-section" class="section-hidden">
+            <div class="container mx-auto px-4 py-8">
+                <div class="flex flex-col md:flex-row gap-8">
+                    <!-- Filters Sidebar -->
+                    <div class="md:w-1/4">
+                        <div class="bg-white rounded-lg shadow p-6 sticky top-24">
+                            <h3 class="text-lg font-semibold mb-4">Filters</h3>
+                            
+                            <!-- Category Filter -->
+                            <div class="mb-6">
+                                <h4 class="font-medium mb-2">Category</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" value="jewelry" onchange="applyFilters()" class="mr-2">
+                                        <span>Jewelry</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" value="clothing" onchange="applyFilters()" class="mr-2">
+                                        <span>Clothing</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" value="accessories" onchange="applyFilters()" class="mr-2">
+                                        <span>Accessories</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Price Filter -->
+                            <div class="mb-6">
+                                <h4 class="font-medium mb-2">Price Range</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="radio" name="price" value="0-500" onchange="applyFilters()" class="mr-2">
+                                        <span>Under ₹500</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="price" value="500-1000" onchange="applyFilters()" class="mr-2">
+                                        <span>₹500 - ₹1000</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="price" value="1000-2000" onchange="applyFilters()" class="mr-2">
+                                        <span>₹1000 - ₹2000</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="price" value="2000+" onchange="applyFilters()" class="mr-2">
+                                        <span>Above ₹2000</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <button onclick="clearFilters()" class="w-full bg-gray-200 text-gray-800 py-2 rounded font-medium">
+                                Clear Filters
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Products Grid -->
+                    <div class="md:w-3/4">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold">All Products</h2>
+                            <div class="flex items-center space-x-4">
+                                <select onchange="sortProducts(this.value)" class="border rounded px-3 py-2">
+                                    <option value="">Sort by</option>
+                                    <option value="price-low">Price: Low to High</option>
+                                    <option value="price-high">Price: High to Low</option>
+                                    <option value="rating">Rating</option>
+                                    <option value="newest">Newest First</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="products-grid" class="grid md:grid-cols-3 gap-6"></div>
+                        
+                        <!-- Load More -->
+                        <div class="text-center mt-8">
+                            <button onclick="loadMoreProducts()" class="btn-primary px-6 py-2 rounded-lg">
+                                Load More Products
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Detail Modal -->
+        <div id="product-modal" class="modal fixed inset-0 z-50 hidden items-center justify-center p-4">
+            <div class="bg-white rounded-xl max-w-4xl w-full max-h-screen overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold">Product Details</h3>
+                        <button onclick="closeProductModal()" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div id="product-detail-content" class="grid md:grid-cols-2 gap-8">
+                        <!-- Product images and details will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart Section -->
+        <section id="cart-section" class="section-hidden">
+            <div class="container mx-auto px-4 py-8">
+                <h2 class="text-2xl font-bold mb-6">Shopping Cart</h2>
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2">
+                        <div id="cart-items" class="bg-white rounded-lg shadow p-6">
+                            <!-- Cart items will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Order Summary -->
+                    <div class="bg-white rounded-lg shadow p-6 h-fit">
+                        <h3 class="text-lg font-semibold mb-4">Order Summary</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span>Subtotal:</span>
+                                <span id="subtotal">₹0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Shipping:</span>
+                                <span id="shipping">₹0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>GST (18%):</span>
+                                <span id="gst">₹0</span>
+                            </div>
+                            <div class="border-t pt-3 flex justify-between font-semibold text-lg">
+                                <span>Total:</span>
+                                <span id="total">₹0</span>
+                            </div>
+                        </div>
+                        
+                        <button onclick="proceedToCheckout()" class="w-full btn-primary text-white py-3 rounded-lg mt-6 font-semibold">
+                            Proceed to Checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checkout Section -->
+        <section id="checkout-section" class="section-hidden">
+            <div class="container mx-auto px-4 py-8">
+                <h2 class="text-2xl font-bold mb-6">Checkout</h2>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <!-- Shipping Address -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-semibold mb-4">Shipping Address</h3>
+                            <form id="address-form">
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <input type="text" placeholder="First Name" class="border rounded px-3 py-2" required>
+                                    <input type="text" placeholder="Last Name" class="border rounded px-3 py-2" required>
+                                </div>
+                                <input type="text" placeholder="Address Line 1" class="border rounded px-3 py-2 w-full mt-4" required>
+                                <input type="text" placeholder="Address Line 2" class="border rounded px-3 py-2 w-full mt-4">
+                                <div class="grid md:grid-cols-3 gap-4 mt-4">
+                                    <input type="text" placeholder="City" class="border rounded px-3 py-2" required>
+                                    <input type="text" placeholder="State" class="border rounded px-3 py-2" required>
+                                    <input type="text" placeholder="PIN Code" class="border rounded px-3 py-2" required>
+                                </div>
+                                <input type="tel" placeholder="Phone Number" class="border rounded px-3 py-2 w-full mt-4" required>
+                            </form>
+                        </div>
+                        
+                        <!-- Payment Method -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-semibold mb-4">Payment Method</h3>
+                            <div class="space-y-3">
+                                <label class="flex items-center p-3 border rounded cursor-pointer">
+                                    <input type="radio" name="payment" value="cod" class="mr-3" checked>
+                                    <i class="fas fa-money-bill-wave text-green-600 mr-3"></i>
+                                    <span>Cash on Delivery</span>
+                                </label>
+                                <label class="flex items-center p-3 border rounded cursor-pointer">
+                                    <input type="radio" name="payment" value="card" class="mr-3">
+                                    <i class="fas fa-credit-card text-blue-600 mr-3"></i>
+                                    <span>Credit/Debit Card</span>
+                                </label>
+                                <label class="flex items-center p-3 border rounded cursor-pointer">
+                                    <input type="radio" name="payment" value="upi" class="mr-3">
+                                    <i class="fas fa-mobile-alt text-purple-600 mr-3"></i>
+                                    <span>UPI Payment</span>
+                                </label>
+                            </div>
+                            
+                            <!-- Card Details (Hidden by default) -->
+                            <div id="card-details" class="mt-4 hidden">
+                                <input type="text" placeholder="Card Number" class="border rounded px-3 py-2 w-full mb-3">
+                                <div class="grid grid-cols-2 gap-3">
+                                    <input type="text" placeholder="MM/YY" class="border rounded px-3 py-2">
+                                    <input type="text" placeholder="CVV" class="border rounded px-3 py-2">
+                                </div>
+                                <input type="text" placeholder="Cardholder Name" class="border rounded px-3 py-2 w-full mt-3">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Order Summary -->
+                    <div class="bg-white rounded-lg shadow p-6 h-fit">
+                        <h3 class="text-lg font-semibold mb-4">Order Summary</h3>
+                        <div id="checkout-items" class="space-y-4 mb-6">
+                            <!-- Checkout items will be populated here -->
+                        </div>
+                        
+                        <div class="border-t pt-4 space-y-3">
+                            <div class="flex justify-between">
+                                <span>Subtotal:</span>
+                                <span id="checkout-subtotal">₹0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Shipping:</span>
+                                <span id="checkout-shipping">₹0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>GST (18%):</span>
+                                <span id="checkout-gst">₹0</span>
+                            </div>
+                            <div class="border-t pt-3 flex justify-between font-semibold text-lg">
+                                <span>Total:</span>
+                                <span id="checkout-total">₹0</span>
+                            </div>
+                        </div>
+                        
+                        <button onclick="placeOrder()" class="w-full btn-primary text-white py-3 rounded-lg mt-6 font-semibold">
+                            Place Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Orders Section -->
+        <section id="orders-section" class="section-hidden">
+            <div class="container mx-auto px-4 py-8">
+                <h2 class="text-2xl font-bold mb-6">My Orders</h2>
+                <div id="orders-list" class="space-y-4">
+                    <!-- Orders will be populated here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login-section" class="section-hidden">
+            <div class="min-h-screen flex items-center justify-center py-12">
+                <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
+                    <div class="text-center mb-8">
+                        <div class="w-16 h-16 bg-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-user text-2xl text-white"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold">Welcome Back</h2>
+                        <p class="text-gray-600">Sign in to your account</p>
+                    </div>
+                    
+                    <div id="login-form" class="space-y-4">
+                        <input type="email" placeholder="Email Address" class="w-full border rounded px-4 py-3" required>
+                        <input type="password" placeholder="Password" class="w-full border rounded px-4 py-3" required>
+                        
+                        <button onclick="login()" class="w-full btn-primary text-white py-3 rounded-lg font-semibold">
+                            Sign In
+                        </button>
+                        
+                        <div class="text-center">
+                            <span class="text-gray-500">or</span>
+                        </div>
+                        
+                        <!-- Social Login -->
+                        <div class="space-y-3">
+                            <button onclick="googleLogin()" class="w-full bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition">
+                                <i class="fab fa-google mr-2"></i>
+                                Continue with Google
+                            </button>
+                            <button onclick="facebookLogin()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                                <i class="fab fa-facebook-f mr-2"></i>
+                                Continue with Facebook
+                            </button>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button onclick="showRegister()" class="text-pink-500 hover:text-pink-600">
+                                Don't have an account? Sign up
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Register Form (Hidden by default) -->
+                    <div id="register-form" class="space-y-4 hidden">
+                        <input type="text" placeholder="Full Name" class="w-full border rounded px-4 py-3" required>
+                        <input type="email" placeholder="Email Address" class="w-full border rounded px-4 py-3" required>
+                        <input type="tel" placeholder="Phone Number" class="w-full border rounded px-4 py-3" required>
+                        <input type="password" placeholder="Password" class="w-full border rounded px-4 py-3" required>
+                        <input type="password" placeholder="Confirm Password" class="w-full border rounded px-4 py-3" required>
+                        
+                        <button onclick="register()" class="w-full btn-primary text-white py-3 rounded-lg font-semibold">
+                            Create Account
+                        </button>
+                        
+                        <div class="text-center">
+                            <button onclick="showLogin()" class="text-pink-500 hover:text-pink-600">
+                                Already have an account? Sign in
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact-section" class="section-hidden">
+            <div class="container mx-auto px-4 py-8">
+                <h2 class="text-2xl font-bold mb-6">Contact Us</h2>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold mb-4">Get in Touch</h3>
+                        <form id="contact-form" class="space-y-4">
+                            <input type="text" placeholder="Your Name" class="w-full border rounded px-4 py-3" required>
+                            <input type="email" placeholder="Your Email" class="w-full border rounded px-4 py-3" required>
+                            <input type="text" placeholder="Subject" class="w-full border rounded px-4 py-3" required>
+                            <textarea placeholder="Your Message" rows="6" class="w-full border rounded px-4 py-3" required></textarea>
+                            
+                            <!-- Upload Photo Option -->
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                                <input type="file" id="photo-upload" accept="image/*" class="hidden" onchange="handlePhotoUpload()">
+                                <label for="photo-upload" class="cursor-pointer">
+                                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
+                                    <p class="text-gray-600">Click to upload a photo</p>
+                                    <p class="text-sm text-gray-400">PNG, JPG, GIF up to 10MB</p>
+                                </label>
+                                <div id="photo-preview" class="mt-4 hidden">
+                                    <img id="preview-image" class="mx-auto max-w-full h-32 object-contain rounded">
+                                    <p class="text-sm text-green-600 mt-2">Photo uploaded successfully!</p>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="w-full btn-primary text-white py-3 rounded-lg font-semibold">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-semibold mb-4">Contact Information</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-map-marker-alt text-pink-500 mr-3"></i>
+                                    <span>Prem Nagar Goregaon whatsapp</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-phone text-pink-500 mr-3"></i>
+                                    <span>+91 7021490818</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-envelope text-pink-500 mr-3"></i>
+                                    <span>support@moonbeamhub.com</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-semibold mb-4">Business Hours</h3>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span>Monday - Friday:</span>
+                                    <span>9:00 AM - 6:00 PM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Saturday:</span>
+                                    <span>10:00 AM - 4:00 PM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Sunday:</span>
+                                    <span>Closed</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center hover:bg-blue-600 transition">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-pink-500 text-white rounded-full flex items-center justify-center hover:bg-pink-600 transition">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-blue-400 text-white rounded-full flex items-center justify-center hover:bg-blue-500 transition">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 bg-pink-500 rounded-full"></div>
+                        <span class="text-xl font-bold">Moonbeam Hub</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Your trusted partner for premium fashion and jewelry. Quality products, competitive prices, and excellent customer service.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" onclick="showSection('home')" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="#" onclick="showSection('products')" class="text-gray-400 hover:text-white transition">Products</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="#" onclick="showSection('contact')" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Return Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Exchange Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Shipping Info</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Size Guide</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe to get special offers and updates</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email" class="flex-1 px-4 py-2 rounded-l-lg text-gray-800">
+                        <button class="bg-pink-500 px-4 py-2 rounded-r-lg hover:bg-pink-600 transition">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2024 Moonbeam Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global Variables
+        let currentUser = null;
+        let cart = [];
+        let orders = [];
+        let allProducts = [];
+        let displayedProducts = [];
+        let currentFilters = {
+            category: [],
+            priceRange: null
+        };
+
+        // Sample Product Data
+        const sampleProducts = [
+            {
+                id: 1,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 899,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://5.imimg.com/data5/SELLER/Default/2025/6/520042648/YI/FA/TC/18622379/whatsapp-image-2025-05-14-at-6-42-33-pm-1000x1000.jpeg",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+            },
+            {
+                id: 2,
+                name: "Designer Kurti Set",
+                category: "clothing",
+                price: 1299,
+                originalPrice: 1999,
+                rating: 4.3,
+                reviews: 156,
+                image: "http://5.imimg.com/data5/SELLER/Default/2023/3/293059882/RY/JW/VI/159404991/new-product-500x500.jpeg",
+                colors: ["red", "blue", "green", "pink"],
+                sizes: ["S", "M", "L", "XL", "XXL"],
+                description: "Trendy designer kurti set with matching dupatta. Comfortable cotton fabric with beautiful embroidery.",
+                inStock: true,
+                discount: 35
+            },
+            {
+                id: 3,
+                name: "Premium Handbag",
+                category: "accessories",
+                price: 2499,
+                originalPrice: 3499,
+                rating: 4.7,
+                reviews: 89,
+                image: "https://5.imimg.com/data5/SELLER/Default/2022/5/EJ/EP/GM/147151640/new-product.jpeg",
+                colors: ["black", "brown", "navy"],
+                sizes: ["One Size"],
+                description: "Luxury leather handbag with multiple compartments. Perfect for office and casual use.",
+                inStock: true,
+                discount: 29
+            },
+            {
+                id: 4,
+                name: "Gold Plated Necklace",
+                category: "jewelry",
+                price: 1599,
+                originalPrice: 2299,
+                rating: 4.6,
+                reviews: 167,
+                image: "https://5.imimg.com/data5/SELLER/Default/2024/12/473397930/FD/RH/ZT/236894590/whatsapp-image-2024-12-16-at-2-16-25-pm-jpeg-1000x1000.jpeg",
+                colors: ["gold", "silver"],
+                sizes: ["16 inch", "18 inch", "20 inch"],
+                description: "Elegant gold plated necklace with pendant. Hypoallergenic and tarnish resistant.",
+                inStock: true,
+                discount: 30
+            },
+            {
+                id: 5,
+                name: "Floral Summer Dress",
+                category: "clothing",
+                price: 899,
+                originalPrice: 1399,
+                rating: 4.4,
+                reviews: 203,
+                image: "https://5.imimg.com/data5/IOS/Default/2023/12/368810566/LP/DZ/QL/195974338/product-jpeg.png",
+                colors: ["floral-blue", "floral-pink", "floral-yellow"],
+                sizes: ["XS", "S", "M", "L", "XL"],
+                description: "Light and breezy floral summer dress. Perfect for casual outings and beach wear.",
+                inStock: true,
+                discount: 36
+            },
+            {
+                id: 6,
+                name: "Silk Scarf Collection",
+                category: "accessories",
+                price: 599,
+                originalPrice: 899,
+                rating: 4.2,
+                reviews: 78,
+                image: "http://5.imimg.com/data5/SELLER/Default/2024/3/396590169/YN/DV/RC/11173865/lady-dresses-apparel-clothing-500x500.jpg",
+                colors: ["red", "blue", "green", "purple", "orange"],
+                sizes: ["90x90 cm"],
+                description: "Premium silk scarf with beautiful patterns. Versatile accessory for any outfit.",
+                inStock: true,
+                discount: 33
+            },
+             {
+                id: 7,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 799,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://5.imimg.com/data5/SELLER/Default/2025/6/520042648/YI/FA/TC/18622379/whatsapp-image-2025-05-14-at-6-42-33-pm-1000x1000.jpeg",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+            
+             {
+                id: 8,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 629,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://image.hm.com/assets/hm/4c/7a/4c7aaebe7184a889c0ff5ef628998a83e57e2701.jpg?imwidth=1260",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+             {
+                id: 9,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 999,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://image.hm.com/assets/hm/a4/82/a48212badb6e4432ac7fa25948ddcaaa074ca3bf.jpg?imwidth=1260",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+             
+             {
+                id: 10,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 850,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://image.hm.com/assets/hm/0d/e9/0de96f93e068e8e737bd1557b6694729ba9e147b.jpg?imwidth=1260",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },{
+                id: 11,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 800,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://image.hm.com/assets/hm/9c/e8/9ce81ca2776902a3b83c92ee22b4311ca1a6a0ae.jpg?imwidth=1260",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+             {
+                id: 12,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 750,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://image.hm.com/assets/hm/b2/a5/b2a5f17537dbfeff28951147dce2b56a3654a1c4.jpg?imwidth=1260",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+             {
+                id: 13,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 650,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://image.hm.com/assets/hm/fa/4d/fa4d8c1b7940ae9612010a475e41e2d40f2f35e6.jpg?imwidth=1260",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+             {
+                id: 14,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 890,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://image.hm.com/assets/hm/23/85/2385046a4c149e7dfb9dcd361cb07b9bf1183244.jpg?imwidth=1260",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+             {
+                id: 15,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 500,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://5.imimg.com/data5/SELLER/Default/2025/6/520042648/YI/FA/TC/18622379/whatsapp-image-2025-05-14-at-6-42-33-pm-1000x1000.jpeg",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+              {
+                id: 16,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 950,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://image.hm.com/assets/hm/5c/86/5c8666faf7408484b26404af9b72c8bd8939e691.jpg?imwidth=1260",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+              {
+                id: 17,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 799,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://image.hm.com/assets/hm/22/e7/22e78842c6524c65ae5fa3a5cec3ddeb28b1809f.jpg?imwidth=1260",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+              {
+                id: 18,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 699,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://image.hm.com/assets/hm/1d/91/1d91609c407db90603e26edef0a809c69747566c.jpg?imwidth=1260",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+              {
+                id: 19,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 780,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://image.hm.com/assets/hm/a4/36/a436860d8bcdc25c9654e6f299ae2eec955ef0ce.jpg?imwidth=1260",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+
+              {
+                id: 20,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 599,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://5.imimg.com/data5/SELLER/Default/2025/6/520042648/YI/FA/TC/18622379/whatsapp-image-2025-05-14-at-6-42-33-pm-1000x1000.jpeg",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+              {
+                id: 21,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 899,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://5.imimg.com/data5/SELLER/Default/2025/6/520042648/YI/FA/TC/18622379/whatsapp-image-2025-05-14-at-6-42-33-pm-1000x1000.jpeg",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+              {
+                id: 22,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 1200,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://5.imimg.com/data5/SELLER/Default/2025/6/520042648/YI/FA/TC/18622379/whatsapp-image-2025-05-14-at-6-42-33-pm-1000x1000.jpeg",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+              {
+                id: 23,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 2500,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://5.imimg.com/data5/SELLER/Default/2025/6/520042648/YI/FA/TC/18622379/whatsapp-image-2025-05-14-at-6-42-33-pm-1000x1000.jpeg",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+              {
+                id: 24,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 2800,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://5.imimg.com/data5/SELLER/Default/2025/6/520042648/YI/FA/TC/18622379/whatsapp-image-2025-05-14-at-6-42-33-pm-1000x1000.jpeg",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+
+              {
+                id: 25,
+                name: "Elegant Silver Earrings",
+                category: "jewelry",
+                price: 2000,
+                originalPrice: 1299,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://5.imimg.com/data5/SELLER/Default/2025/6/520042648/YI/FA/TC/18622379/whatsapp-image-2025-05-14-at-6-42-33-pm-1000x1000.jpeg",
+                colors: ["silver", "gold", "rose-gold"],
+                sizes: ["S", "M", "L"],
+                description: "Beautiful handcrafted silver earrings with intricate design. Perfect for special occasions and daily wear.",
+                inStock: true,
+                discount: 31
+             },
+        ];
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', function() {
+            allProducts = [...sampleProducts];
+            displayedProducts = [...allProducts];
+            updateProductsDisplay();
+            updateFeaturedProducts();
+            updateCart();
+            updateOrders();
+            
+            // Add event listeners
+            setupEventListeners();
+        });
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Payment method change
+            document.querySelectorAll('input[name="payment"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const cardDetails = document.getElementById('card-details');
+                    if (this.value === 'card') {
+                        cardDetails.classList.remove('hidden');
+                    } else {
+                        cardDetails.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Contact form submission
+            document.getElementById('contact-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showNotification('Message sent successfully! We will get back to you soon.', 'success');
+                this.reset();
+                document.getElementById('photo-preview').classList.add('hidden');
+            });
+        }
+
+        // Navigation Functions
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.add('section-hidden');
+            });
+            
+            // Show selected section
+            const targetSection = document.getElementById(sectionName + '-section');
+            if (targetSection) {
+                targetSection.classList.remove('section-hidden');
+                targetSection.classList.add('fade-in');
+                
+                // Update products display when showing products section
+                if (sectionName === 'products') {
+                    updateProductsDisplay();
+                }
+            }
+            
+            // Close mobile menu
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Product Functions
+        function updateProductsDisplay() {
+            const productsGrid = document.getElementById('products-grid');
+            if (!productsGrid) return;
+
+            productsGrid.innerHTML = displayedProducts.map(product => `
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover cursor-pointer" onclick="showProductDetail(${product.id})">
+                    <div class="relative">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-sm font-semibold">
+                            ${product.discount}% OFF
+                        </div>
+                        <button onclick="event.stopPropagation(); addToCart(${product.id})" class="absolute top-2 right-2 bg-white p-2 rounded-full shadow hover:bg-pink-50 transition">
+                            <i class="fas fa-heart text-pink-500"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">${product.name}</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 mr-2">
+                                ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
+                            </div>
+                            <span class="text-sm text-gray-600">(${product.reviews})</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-xl font-bold text-pink-600">₹${product.price}</span>
+                                <span class="text-sm text-gray-500 line-through ml-2">₹${product.originalPrice}</span>
+                            </div>
+                            <button onclick="event.stopPropagation(); addToCart(${product.id})" class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 transition">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateFeaturedProducts() {
+            const featuredContainer = document.getElementById('featured-products');
+            if (!featuredContainer) return;
+
+            const featured = allProducts.slice(0, 4);
+            featuredContainer.innerHTML = featured.map(product => `
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover cursor-pointer" onclick="showProductDetail(${product.id})">
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-semibold mb-2">${product.name}</h3>
+                        <div class="flex items-center justify-between">
+                            <span class="text-lg font-bold text-pink-600">₹${product.price}</span>
+                            <button onclick="event.stopPropagation(); addToCart(${product.id})" class="bg-pink-500 text-white px-3 py-1 rounded text-sm hover:bg-pink-600 transition">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showProductDetail(productId) {
+            const product = allProducts.find(p => p.id === productId);
+            if (!product) return;
+
+            const modal = document.getElementById('product-modal');
+            const content = document.getElementById('product-detail-content');
+            
+            content.innerHTML = `
+                <div>
+                    <img src="${product.image}" alt="${product.name}" class="w-full rounded-lg">
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold mb-4">${product.name}</h2>
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400 mr-2">
+                            ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
+                        </div>
+                        <span class="text-gray-600">${product.rating} (${product.reviews} reviews)</span>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <span class="text-3xl font-bold text-pink-600">₹${product.price}</span>
+                        <span class="text-xl text-gray-500 line-through ml-3">₹${product.originalPrice}</span>
+                        <span class="bg-red-100 text-red-600 px-2 py-1 rounded ml-3">${product.discount}% OFF</span>
+                    </div>
+                    
+                    <p class="text-gray-600 mb-6">${product.description}</p>
+                    
+                    <!-- Color Selection -->
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-3">Color:</h4>
+                        <div class="flex space-x-3">
+                            ${product.colors.map(color => `
+                                <button class="w-8 h-8 rounded-full border-2 border-gray-300 ${getColorClass(color)}" 
+                                        onclick="selectColor('${color}')" 
+                                        title="${color}"></button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <!-- Size Selection -->
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-3">Size:</h4>
+                        <div class="flex space-x-3">
+                            ${product.sizes.map(size => `
+                                <button class="border px-3 py-2 rounded hover:border-pink-500 hover:text-pink-500" 
+                                        onclick="selectSize('${size}')">${size}</button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <!-- Quantity -->
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-3">Quantity:</h4>
+                        <div class="flex items-center space-x-3">
+                            <button onclick="decreaseQuantity()" class="border px-3 py-2 rounded hover:bg-gray-100">-</button>
+                            <span id="quantity" class="px-4 py-2 border rounded">1</span>
+                            <button onclick="increaseQuantity()" class="border px-3 py-2 rounded hover:bg-gray-100">+</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="space-y-3">
+                        <button onclick="addToCart(${product.id})" class="w-full btn-primary text-white py-3 rounded-lg font-semibold">
+                            Add to Cart
+                        </button>
+                        <button onclick="buyNow(${product.id})" class="w-full border border-pink-500 text-pink-500 py-3 rounded-lg font-semibold hover:bg-pink-50">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('product-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function getColorClass(color) {
+            const colorClasses = {
+                'red': 'bg-red-500',
+                'blue': 'bg-blue-500',
+                'green': 'bg-green-500',
+                'pink': 'bg-pink-500',
+                'black': 'bg-black',
+                'white': 'bg-white',
+                'brown': 'bg-yellow-800',
+                'navy': 'bg-blue-900',
+                'silver': 'bg-gray-400',
+                'gold': 'bg-yellow-400',
+                'rose-gold': 'bg-rose-400',
+                'purple': 'bg-purple-500',
+                'orange': 'bg-orange-500',
+                'floral-blue': 'bg-blue-300',
+                'floral-pink': 'bg-pink-300',
+                'floral-yellow': 'bg-yellow-300'
+            };
+            return colorClasses[color] || 'bg-gray-300';
+        }
+
+        function selectColor(color) {
+            // Update selected color UI
+            document.querySelectorAll('.w-8.h-8').forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-pink-500');
+            });
+            event.target.classList.add('ring-2', 'ring-pink-500');
+        }
+
+        function selectSize(size) {
+            // Update selected size UI
+            document.querySelectorAll('[onclick^="selectSize"]').forEach(btn => {
+                btn.classList.remove('border-pink-500', 'text-pink-500', 'bg-pink-50');
+            });
+            event.target.classList.add('border-pink-500', 'text-pink-500', 'bg-pink-50');
+        }
+
+        function increaseQuantity() {
+            const quantitySpan = document.getElementById('quantity');
+            let quantity = parseInt(quantitySpan.textContent);
+            quantitySpan.textContent = quantity + 1;
+        }
+
+        function decreaseQuantity() {
+            const quantitySpan = document.getElementById('quantity');
+            let quantity = parseInt(quantitySpan.textContent);
+            if (quantity > 1) {
+                quantitySpan.textContent = quantity - 1;
+            }
+        }
+
+        // Filter Functions
+        function filterProducts(category) {
+            if (category) {
+                displayedProducts = allProducts.filter(product => product.category === category);
+            } else {
+                displayedProducts = [...allProducts];
+            }
+            updateProductsDisplay();
+            showSection('products');
+        }
+
+        function applyFilters() {
+            let filtered = [...allProducts];
+            
+            // Category filter
+            const selectedCategories = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+                .map(cb => cb.value);
+            
+            if (selectedCategories.length > 0) {
+                filtered = filtered.filter(product => selectedCategories.includes(product.category));
+            }
+            
+            // Price filter
+            const selectedPrice = document.querySelector('input[name="price"]:checked');
+            if (selectedPrice) {
+                const priceRange = selectedPrice.value;
+                if (priceRange === '0-500') {
+                    filtered = filtered.filter(product => product.price < 500);
+                } else if (priceRange === '500-1000') {
+                    filtered = filtered.filter(product => product.price >= 500 && product.price < 1000);
+                } else if (priceRange === '1000-2000') {
+                    filtered = filtered.filter(product => product.price >= 1000 && product.price < 2000);
+                } else if (priceRange === '2000+') {
+                    filtered = filtered.filter(product => product.price >= 2000);
+                }
+            }
+            
+            displayedProducts = filtered;
+            updateProductsDisplay();
+        }
+
+        function clearFilters() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+            document.querySelectorAll('input[name="price"]').forEach(radio => radio.checked = false);
+            displayedProducts = [...allProducts];
+            updateProductsDisplay();
+        }
+
+        function sortProducts(sortBy) {
+            switch (sortBy) {
+                case 'price-low':
+                    displayedProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    displayedProducts.sort((a, b) => b.price - a.price);
+                    break;
+                case 'rating':
+                    displayedProducts.sort((a, b) => b.rating - a.rating);
+                    break;
+                case 'newest':
+                    displayedProducts.sort((a, b) => b.id - a.id);
+                    break;
+                default:
+                    displayedProducts = [...allProducts];
+            }
+            updateProductsDisplay();
+        }
+
+        function loadMoreProducts() {
+            // Simulate loading more products
+            showNotification('All products loaded!', 'info');
+        }
+
+        // Cart Functions
+        function addToCart(productId) {
+            const product = allProducts.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1, selectedColor: 'default', selectedSize: 'default' });
+            }
+
+            updateCart();
+            showNotification('Product added to cart!', 'success');
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+            showNotification('Product removed from cart!', 'info');
+        }
+
+        function updateCartQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+
+        function updateCart() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItems = document.getElementById('cart-items');
+            
+            // Update cart count
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            if (totalItems > 0) {
+                cartCount.classList.add('cart-badge');
+                setTimeout(() => cartCount.classList.remove('cart-badge'), 500);
+            }
+
+            // Update cart items display
+            if (cartItems) {
+                if (cart.length === 0) {
+                    cartItems.innerHTML = `
+                        <div class="text-center py-8">
+                            <i class="fas fa-shopping-cart text-6xl text-gray-300 mb-4"></i>
+                            <p class="text-gray-500 text-lg">Your cart is empty</p>
+                            <button onclick="showSection('products')" class="btn-primary px-6 py-2 rounded-lg mt-4">
+                                Continue Shopping
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    cartItems.innerHTML = `
+                        <h3 class="text-lg font-semibold mb-4">Cart Items (${totalItems})</h3>
+                        ${cart.map(item => `
+                            <div class="flex items-center justify-between border-b pb-4 mb-4">
+                                <div class="flex items-center space-x-4">
+                                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded">
+                                    <div>
+                                        <h4 class="font-semibold">${item.name}</h4>
+                                        <p class="text-gray-600">₹${item.price}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <button onclick="updateCartQuantity(${item.id}, -1)" class="border px-2 py-1 rounded">-</button>
+                                    <span class="px-3">${item.quantity}</span>
+                                    <button onclick="updateCartQuantity(${item.id}, 1)" class="border px-2 py-1 rounded">+</button>
+                                    <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-600 ml-3">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    `;
+                }
+            }
+
+            // Update totals
+            updateCartTotals();
+        }
+
+        function updateCartTotals() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = subtotal > 1000 ? 0 : 50;
+            const gst = Math.round(subtotal * 0.18);
+            const total = subtotal + shipping + gst;
+
+            // Update cart totals
+            const subtotalEl = document.getElementById('subtotal');
+            const shippingEl = document.getElementById('shipping');
+            const gstEl = document.getElementById('gst');
+            const totalEl = document.getElementById('total');
+
+            if (subtotalEl) subtotalEl.textContent = `₹${subtotal}`;
+            if (shippingEl) shippingEl.textContent = `₹${shipping}`;
+            if (gstEl) gstEl.textContent = `₹${gst}`;
+            if (totalEl) totalEl.textContent = `₹${total}`;
+
+            // Update checkout totals
+            const checkoutSubtotal = document.getElementById('checkout-subtotal');
+            const checkoutShipping = document.getElementById('checkout-shipping');
+            const checkoutGst = document.getElementById('checkout-gst');
+            const checkoutTotal = document.getElementById('checkout-total');
+
+            if (checkoutSubtotal) checkoutSubtotal.textContent = `₹${subtotal}`;
+            if (checkoutShipping) checkoutShipping.textContent = `₹${shipping}`;
+            if (checkoutGst) checkoutGst.textContent = `₹${gst}`;
+            if (checkoutTotal) checkoutTotal.textContent = `₹${total}`;
+        }
+
+        function buyNow(productId) {
+            addToCart(productId);
+            proceedToCheckout();
+        }
+
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!', 'error');
+                return;
+            }
+
+            updateCheckoutItems();
+            showSection('checkout');
+        }
+
+        function updateCheckoutItems() {
+            const checkoutItems = document.getElementById('checkout-items');
+            if (checkoutItems) {
+                checkoutItems.innerHTML = cart.map(item => `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <img src="${item.image}" alt="${item.name}" class="w-12 h-12 object-cover rounded">
+                            <div>
+                                <p class="font-medium">${item.name}</p>
+                                <p class="text-sm text-gray-600">Qty: ${item.quantity}</p>
+                            </div>
+                        </div>
+                        <span class="font-semibold">₹${item.price * item.quantity}</span>
+                    </div>
+                `).join('');
+            }
+            updateCartTotals();
+        }
+
+        // Order Functions
+        function placeOrder() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!', 'error');
+                return;
+            }
+
+            // Validate address form
+            const addressForm = document.getElementById('address-form');
+            const requiredFields = addressForm.querySelectorAll('input[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('border-red-500');
+                    isValid = false;
+                } else {
+                    field.classList.remove('border-red-500');
+                }
+            });
+
+            if (!isValid) {
+                showNotification('Please fill all required fields!', 'error');
+                return;
+            }
+
+            // Create order
+            const order = {
+                id: Date.now(),
+                items: [...cart],
+                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + 50 + Math.round(cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) * 0.18),
+                status: 'confirmed',
+                orderDate: new Date().toLocaleDateString(),
+                deliveryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+                paymentMethod: document.querySelector('input[name="payment"]:checked').value
+            };
+
+            orders.unshift(order);
+            cart = [];
+            updateCart();
+            updateOrders();
+
+            showNotification('Order placed successfully!', 'success');
+            showSection('orders');
+        }
+
+        function updateOrders() {
+            const ordersList = document.getElementById('orders-list');
+            if (!ordersList) return;
+
+            if (orders.length === 0) {
+                ordersList.innerHTML = `
+                    <div class="text-center py-8 bg-white rounded-lg shadow">
+                        <i class="fas fa-box-open text-6xl text-gray-300 mb-4"></i>
+                        <p class="text-gray-500 text-lg">No orders yet</p>
+                        <button onclick="showSection('products')" class="btn-primary px-6 py-2 rounded-lg mt-4">
+                            Start Shopping
+                        </button>
+                    </div>
+                `;
+            } else {
+                ordersList.innerHTML = orders.map(order => `
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="font-semibold text-lg">Order #${order.id}</h3>
+                                <p class="text-gray-600">Ordered on ${order.orderDate}</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold ${getStatusColor(order.status)}">
+                                    ${order.status.toUpperCase()}
+                                </span>
+                                <p class="text-lg font-bold mt-1">₹${order.total}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                
+                                <p class="text-sm text-gray-600">Payment Method:</p>
+                                <p class="font-medium">${getPaymentMethodName(order.paymentMethod)}</p>
+                            </div>
+                            
+                            <div>
+                                <p class="text-sm text-gray-600">Expected Delivery:</p>
+                                <p class="font-medium">${order.deliveryDate}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border-t pt-4">
+                            <p class="text-sm text-gray-600 mb-2">Items (${order.items.length}):</p>
+                            <div class="flex flex-wrap gap-2">
+                                ${order.items.map(item => `
+                                    <div class="flex items-center space-x-2 bg-gray-50 rounded p-2">
+                                        <img src="${item.image}" alt="${item.name}" class="w-8 h-8 object-cover rounded">
+                                        <span class="text-sm">${item.name} x${item.quantity}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="flex space-x-3 mt-4">
+                            <button onclick="trackOrder(${order.id})" class="flex-1 border border-pink-500 text-pink-500 py-2 rounded hover:bg-pink-50">
+                                Track Order
+                            </button>
+                            <button onclick="cancelOrder(${order.id})" class="flex-1 border border-gray-300 text-gray-600 py-2 rounded hover:bg-gray-50">
+                                Cancel Order
+                            </button>
+                            <button onclick="returnOrder(${order.id})" class="flex-1 border border-gray-300 text-gray-600 py-2 rounded hover:bg-gray-50">
+                                Return/Exchange
+                            </button>
+                        </div>
+                    </div>
+                    
+                `).join('');
+            }
+            
+        }
+
+        function getStatusColor(status) {
+            switch (status) {
+                case 'confirmed': return 'bg-blue-100 text-blue-800';
+                case 'shipped': return 'bg-yellow-100 text-yellow-800';
+                case 'delivered': return 'bg-green-100 text-green-800';
+                case 'cancelled': return 'bg-red-100 text-red-800';
+                default: return 'bg-gray-100 text-gray-800';
+            }
+        }
+
+        function getPaymentMethodName(method) {
+            switch (method) {
+                case 'cod': return 'Cash on Delivery';
+                case 'card': return 'Credit/Debit Card';
+                case 'upi': return 'UPI Payment';
+                default: return 'Unknown';
+            }
+        }
+
+        function trackOrder(orderId) {
+            showNotification('Order tracking information sent to your email!', 'info');
+        }
+
+        function cancelOrder(orderId) {
+            if (confirm('Are you sure you want to cancel this order?')) {
+                const order = orders.find(o => o.id === orderId);
+                if (order) {
+                    order.status = 'cancelled';
+                    updateOrders();
+                    showNotification('Order cancelled successfully!', 'success');
+                }
+            }
+        }
+
+        function returnOrder(orderId) {
+            showNotification('Return request initiated. Our team will contact you soon!', 'info');
+        }
+
+        // Authentication Functions
+        function login() {
+            const email = document.querySelector('#login-form input[type="email"]').value;
+            const password = document.querySelector('#login-form input[type="password"]').value;
+
+            if (!email || !password) {
+                showNotification('Please fill all fields!', 'error');
+                return;
+            }
+login
+            // Simulate login
+            currentUser = { email, name: 'John Doe' };
+            updateUserInterface();
+            showNotification('Login successful!', '');
+            showSection('home');
+        }
+
+        function register() {
+            const name = document.querySelector('#register-form input[placeholder="Full Name"]').value;
+            const email = document.querySelector('#register-form input[type="email"]').value;
+            const phone = document.querySelector('#register-form input[type="tel"]').value;
+            const password = document.querySelector('#register-form input[placeholder="Password"]').value;
+            const confirmPassword = document.querySelector('#register-form input[placeholder="Confirm Password"]').value;
+
+            if (!name || !email || !phone || !password || !confirmPassword) {
+                showNotification('Please fill all fields!', 'error');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showNotification('Passwords do not match!', 'error');
+                return;
+            }
+
+            // Simulate registration
+            currentUser = { email, name, phone };
+            updateUserInterface();
+            showNotification('Registration successful!', 'success');
+            showSection('home');
+        }
+
+        function googleLogin()  {
+            // Simulate Google login
+            currentUser = { email: 'https://mail.google.com/mail/u/0/#inbox', name: 'Google User' };
+           updateUserInterface();
+    showNotification('✅ Google login successful!', '');
+    showSection('home');
+}
+        
+
+        function facebookLogin() {
+            // Simulate Facebook login
+            currentUser = { email: 'user@facebook.com', name: 'Facebook User' };
+            updateUserInterface();
+            showNotification('✅ Google login successful!', '');
+            showSection('home');
+        }
+
+        function logout() {
+            currentUser = null;
+            updateUserInterface();
+            showNotification('Logged out successfully!', 'info');
+            showSection('home');
+        }
+
+        function showLogin() {
+            document.getElementById('login-form').classList.remove('hidden');
+            document.getElementById('register-form').classList.add('hidden');
+        }
+
+        function showRegister() {
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('register-form').classList.remove('hidden');
+        }
+
+        function updateUserInterface() {
+            const userBtn = document.getElementById('user-btn');
+            if (currentUser) {
+                userBtn.innerHTML = `
+                    <div class="relative">
+                        <i class="fas fa-user-circle text-xl"></i>
+                        <div class="absolute top-8 right-0 bg-white border rounded-lg shadow-lg p-2 hidden group-hover:block">
+                            <p class="text-sm font-medium">${currentUser.name}</p>
+                            <button onclick="logout()" class="text-sm text-red-600 hover:text-red-800">Logout</button>
+                        </div>
+                    </div>
+                `;
+                userBtn.classList.add('group');
+            } else {
+                userBtn.innerHTML = '<i class="fas fa-user text-xl"></i>';
+                userBtn.classList.remove('group');
+                userBtn.onclick = () => showSection('login');
+            }
+        }
+
+        // Utility Functions
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${getNotificationClass(type)}`;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function getNotificationClass(type) {
+            switch (type) {
+                case 'success': return 'bg-green-500';
+                case 'error': return 'bg-red-500';
+                case 'warning': return 'bg-yellow-500';
+                default: return 'bg-blue-500';
+            }
+        }
+
+        function handlePhotoUpload() {
+            const fileInput = document.getElementById('photo-upload');
+            const preview = document.getElementById('photo-preview');
+            const previewImage = document.getElementById('preview-image');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    preview.classList.remove('hidden');
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+
+        // Initialize page
+        showSection('home');
+    </script>
+    
+</body>
+</html>
